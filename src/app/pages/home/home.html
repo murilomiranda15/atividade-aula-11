@@ -1,0 +1,66 @@
+<div>
+    <nav class="nav">
+        <a class="nav-link active" aria-current="page" href="#">Clientes</a>
+        <a class="nav-link" routerLink="/produtos">Produtos</a>
+    </nav>
+</div>
+<div>
+    <form #meuFormulario="ngForm" (ngSubmit)="salvar()">
+        <fieldset>
+            <legend>Nome</legend>
+            <input #campoNome="ngModel" type="text" [(ngModel)]="nome" name="nome" required minlength="3" maxlength="60">
+            @if (campoNome.invalid && campoNome.touched) {
+                <div>Campo nome deve ser preenchido!!</div>
+            }
+        </fieldset>
+        <fieldset>
+            <legend>Curso</legend>
+            <input #campoCurso="ngModel" type="text" [(ngModel)]="curso" name="curso" required minlength="3" maxlength="50">
+            @if (campoCurso.invalid && campoCurso.touched) {
+                <div>Campo curso deve ser preenchido</div>
+            }
+        </fieldset>
+        <fieldset>
+            <legend>E-mail</legend>
+            <input #campoEmail="ngModel" type="email" [(ngModel)]="email" name="email" required minlength="10" maxlength="100">
+            @if (campoEmail.invalid && campoEmail.touched) {
+                <div>Campo e-mail deve ser preenchido!!</div>
+            }
+        </fieldset>
+        <br>
+        <button [disabled]="!meuFormulario.valid">Salvar</button>
+    </form>
+    <div>
+        <table>
+            <tr>
+                <td>Nome</td>
+                <td>{{ nome }}</td>
+            </tr>
+            <tr>
+                <td>Curso</td>
+                <td>{{ curso }}</td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td>{{ email }}</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h2>Clientes Cadastrados</h2>
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Curso</th>
+                <th>E-mail</th>
+            </tr>
+            @for (item of registros; track item.nome) {
+                <tr>
+                    <td>{{ item.nome }}</td>
+                    <td>{{ item.curso }}</td>
+                    <td>{{ item.email }}</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div>
+    <nav class="nav">
+        <a class="nav-link" routerLink="/">Clientes</a>
+        <a class="nav-link active" aria-current="page" routerLink="/produtos">Produtos</a>
+    </nav>
+</div>
+<div>
+    <form #meuFormulario="ngForm" (ngSubmit)="salvar()">
+        <fieldset>
+            <legend>Nome</legend>
+            <input #campoNome="ngModel" type="text" [(ngModel)]="nome" name="nome" required minlength="3" maxlength="60">
+            @if (campoNome.invalid && campoNome.touched) {
+                <div>Campo nome deve ser preenchido!!</div>
+            }
+        </fieldset>
+        <fieldset>
+            <legend>Preço</legend>
+            <input #campoPreco="ngModel" type="number" [(ngModel)]="preco" name="preco" required min="1" max="10000">
+            @if (campoPreco.invalid && campoPreco.touched) {
+                <div>Campo preço deve ser preenchido</div>
+            }
+        </fieldset>
+        <br>
+        <button [disabled]="!meuFormulario.valid">Salvar</button>
+    </form>
+    <div>
+        <table>
+            <tr>
+                <td>Nome</td>
+                <td>{{ nome }}</td>
+            </tr>
+            <tr>
+                <td>Preço</td>
+                <td>{{ preco }}</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h2>Produtos Cadastrados</h2>
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+            </tr>
+            @for (item of registros; track item.nome) {
+                <tr>
+                    <td>{{ item.nome }}</td>
+                    <td>{{ item.preco }}</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
